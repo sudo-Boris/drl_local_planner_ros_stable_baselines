@@ -30,6 +30,11 @@ Stop docker:
 docker stop gring && docker rm gring
 ```
 
+In docker container run:
+```bash
+catkin_make && refresh
+```
+
 # Installation (Else: Docker below)
 
 1. Standart ROS setup (Code has been tested with ROS-kinetic on Ubuntu 16.04)
@@ -85,27 +90,20 @@ docker stop gring && docker rm gring
 5. Set system-relevant variables
    - Modify all relevant pathes rl_bringup/config/path_config.ini
 
-# Example usage
+# Example usage IN DOCKER
 
 1. Train agent
 
-   - Open first terminal (roscore):
-
    ```
-   roscore
+   roscore &
    ```
 
-   - Open second terminal (simulationI:
-
    ```
-   roslaunch rl_bringup setup.launch ns:="sim1" rl_params:="rl_params_scan"
+   roslaunch rl_bringup setup.launch ns:="sim1" rl_params:="rl_params_scan" &
    ```
 
-   - Open third terminal (DRL-agent):
-
    ```
-   source <path_to_venv>/bin/activate
-   python rl_agent/scripts/train_scripts/train_ppo.py
+   python3 rl_agent/scripts/train_scripts/train_ppo.py
    ```
 
    - Open fourth terminal (Visualization):
