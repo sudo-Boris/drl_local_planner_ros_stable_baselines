@@ -9,7 +9,7 @@
 # Installation Docker (NEW)
 
 ```bash
-. <(curl -sSL https://raw.githubusercontent.com/ReykCS/drl_local_planner_ros_stable_baselines/install.sh)
+. <(curl -sSL https://raw.githubusercontent.com/ReykCS/drl_local_planner_ros_stable_baselines/master/setup.sh)
 ```
 
 # Installation (Else: Docker below)
