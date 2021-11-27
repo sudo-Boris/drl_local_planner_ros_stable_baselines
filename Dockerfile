@@ -29,7 +29,7 @@ RUN /venv_p3/bin/pip install \
 RUN sudo apt-get install -y ros-kinetic-gazebo-ros
 
 ADD requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN /venv_p3/bin/pip install -r requirements.txt
 
 # Building catkin_ws
 # RUN mkdir -p /usr/catkin_ws/src
