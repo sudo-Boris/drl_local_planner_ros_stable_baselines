@@ -12,6 +12,24 @@
 . <(curl -sSL https://raw.githubusercontent.com/ReykCS/drl_local_planner_ros_stable_baselines/master/setup.sh)
 ```
 
+Build Docker container:
+
+```bash
+docker build -t gring .
+```
+
+Run docker:
+
+```bash
+docker run -it -v <Path to Gring dir>:/catkin_ws --name gring gring
+```
+
+Stop docker:
+
+```bash
+docker stop gring && docker rm gring
+```
+
 # Installation (Else: Docker below)
 
 1. Standart ROS setup (Code has been tested with ROS-kinetic on Ubuntu 16.04)

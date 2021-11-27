@@ -7,30 +7,42 @@ RUN apt-get update && apt-get install -y \
   virtualenv \
   screen \
   python3-dev \
+  python3 \
   git \
   ros-kinetic-tf2-geometry-msgs \
   ros-kinetic-navigation \
   ros-kinetic-rviz 
 
+RUN apt-get install -y apt-utils python3-pip
+
 #Creating virtualenv for python3
-RUN virtualenv /venv_p3 --python=python3
-RUN /venv_p3/bin/pip install \
-    pyyaml \
-    rospkg \
-    catkin_pkg \
-    exception \
-    numpy \
-    tensorflow=="1.13.1" \
-    gym \
-    pyquaternion \ 
-    mpi4py \
-    matplotlib \
-    stable_baselines
+# RUN pip3 install \
+#     pyyaml \
+#     rospkg \
+#     catkin_pkg \
+#     exception \
+#     tensorflow=="1.13.1" \
+#     gym \
+#     pyquaternion \ 
+#     mpi4py \
+#     matplotlib
 
 RUN sudo apt-get install -y ros-kinetic-gazebo-ros
 
 ADD requirements.txt requirements.txt
-RUN /venv_p3/bin/pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
+
+RUN git clone https://github.com/RGring/stable-baselines.git stable_baselines
+WORKDIR /stable_baselines
+RUN pip3 install -e .
+
+WORKDIR /
+
+RUN echo "source /catkin_ws/devel/setup.sh" >> /root/.bashrc
+RUN echo "alias refresh='source /root/.bashrc'" >> /root/.bashrc
+
+RUN cd / && mkdir /catkin_ws
+WORKDIR /catkin_ws
 
 # Building catkin_ws
 # RUN mkdir -p /usr/catkin_ws/src

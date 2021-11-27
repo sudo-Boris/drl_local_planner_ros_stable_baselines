@@ -17,8 +17,8 @@ chmod +x *.sh
 
 echo "Succefully built docker container for gring"
 
-alias gring_start_docker=".${PWD}/docker-run.sh"
-alias gring_stop_docker=".${PWD}/docker-stop.sh"
+alias gring_start_docker="source ${PWD}/docker-run.sh"
+alias gring_stop_docker="source ${PWD}/docker-stop.sh"
 
 cd -
 

@@ -1,1 +1,1 @@
-docker run -it -v ${PWD}/..:/catkin_ws --name gring gring
+docker run -it -v ${PWD}/../../..:/catkin_ws --net=host --name gring gring
