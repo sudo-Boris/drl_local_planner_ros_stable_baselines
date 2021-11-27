@@ -76,7 +76,7 @@ sphinxcontrib-htmlhelp==1.0.1
 sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.2
 sphinxcontrib-serializinghtml==1.1.3
--e git+git@github.com:RGring/stable-baselines.git@94ccad6d2da0c715d671f2f8f7dad22ef320cd5c#egg=stable_baselines
+-e git+git@github.com:RGring/stable-baselines.git@master#egg=stable_baselines
 tensorboard==1.13.1
 tensorflow==1.13.1
 tensorflow-estimator==1.13.0
