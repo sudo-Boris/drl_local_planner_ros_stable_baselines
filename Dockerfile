@@ -24,7 +24,8 @@ RUN /venv_p3/bin/pip install \
     gym \
     pyquaternion \ 
     mpi4py \
-    matplotlib
+    matplotlib \
+    stable_baselines
 
 RUN sudo apt-get install -y ros-kinetic-gazebo-ros
 
