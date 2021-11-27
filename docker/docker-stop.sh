@@ -1,0 +1,1 @@
+docker stop gring && docker rm gring

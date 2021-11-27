@@ -1,3 +1,6 @@
+# OLD VERSION
+# RUNS EVERYTHING
+
 FROM ros:kinetic-robot-xenial
 
 RUN apt-get update && apt-get install -y \
