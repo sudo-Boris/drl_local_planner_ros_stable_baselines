@@ -13,7 +13,13 @@ rosws update
 cd gring/docker
 chmod +x *.sh
 
-./docker-run.sh
+./docker-build.sh
+
+echo "Succefully built docker container for gring"
 
 alias gring_start_docker=".${PWD}/docker-run.sh"
 alias gring_stop_docker=".${PWD}/docker-stop.sh"
+
+cd -
+
+echo "You can now start the gring docker with: 'gring_start_docker' and stop it with 'gring_stop_docker'"
