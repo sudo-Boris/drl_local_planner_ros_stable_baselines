@@ -29,15 +29,18 @@ RUN apt-get install -y apt-utils python3-pip
 
 RUN sudo apt-get install -y ros-kinetic-gazebo-ros
 
+RUN virtualenv /venv_p3 --python=python3
+
 ADD requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN /venv_p3/bin/pip install -r requirements.txt
 
 RUN git clone https://github.com/RGring/stable-baselines.git stable_baselines
 WORKDIR /stable_baselines
-RUN pip3 install -e .
+RUN /venv_p3/bin/pip install -e .
 
 WORKDIR /
 
+RUN echo "export PYTHONPATH="":${PYTHONPATH}" >> /root/.bashrc
 RUN echo "source /catkin_ws/devel/setup.sh" >> /root/.bashrc
 RUN echo "alias refresh='source /root/.bashrc'" >> /root/.bashrc
 
