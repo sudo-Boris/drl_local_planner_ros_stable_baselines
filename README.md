@@ -33,7 +33,9 @@ docker stop gring && docker rm gring
 In docker container run:
 ```bash
 catkin_make && refresh
+venv && cd src/drl_local_planner_forks/stable-baselines/ && pip install -e .
 ```
+
 
 # Installation (Else: Docker below)
 
@@ -113,7 +115,7 @@ catkin_make && refresh
    ```
 
 2. Execute self-trained ppo-agent
-   - Copy your trained agent in your "path_to_models"
+   - change the path "path_to_models" in rl_bringup/config/path_config.ini  
    - Open first terminal:
    ```
    roscore
@@ -125,7 +127,7 @@ catkin_make && refresh
    - Open third terminal:
    ```
    source <path_to_venv>/venv_p3/bin/activate
-   roslaunch rl_agent run_ppo_agent.launch mode:="train"
+   roslaunch rl_agent run_1_raw_cont.launch mode:="train"
    ```
    - Open fourth terminal:
    ```
