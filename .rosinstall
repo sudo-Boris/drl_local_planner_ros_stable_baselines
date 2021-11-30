@@ -10,7 +10,7 @@
     local-name: drl_local_planner_forks/navigation
     uri: https://github.com/RGring/navigation.git
     version: flatland_integration
-# - git:
-#     local-name: drl_local_planner_forks/stable-baselines
-#     uri: https://github.com/RGring/stable-baselines.git
-#     version: added_1d_conv_layer
+- git:
+    local-name: drl_local_planner_forks/stable-baselines
+    uri: https://github.com/RGring/stable-baselines.git
+    version: added_1d_conv_layer
