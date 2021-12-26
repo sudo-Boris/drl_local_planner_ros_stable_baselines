@@ -1,7 +1,9 @@
 <launch>
 	<arg name="ns"/>
     <arg name="map_path"/> 
-    <arg name="update_rate"/> 
+    <arg name="update_rate"/>
+    <arg name="robot_model"/>
+
 
     <param name="use_sim_time" value="true"/>
 
@@ -10,6 +12,7 @@
         <arg name="ns" value="$(arg ns)" />
         <arg name="map_path" value="$(arg map_path)" />
         <arg name="update_rate" value="$(arg update_rate)" />
+        <arg name="robot_model" value="$(arg robot_model)"/>
     </include>
 
     <!-- Launch light pedsim -->

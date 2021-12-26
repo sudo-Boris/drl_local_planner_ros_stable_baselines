@@ -61,10 +61,10 @@ class StateCollector():
             self.twist_sub_ = rospy.Subscriber("%s/twist" % (self.__ns), TwistStamped, self.__twist_callback, queue_size=1)
             self.goal_sub_ = rospy.Subscriber("%s/rl_agent/robot_to_goal" % (self.__ns), PoseStamped, self.__goal_callback, queue_size=1)
         else:
-            self.static_scan_sub_ = rospy.Subscriber("%s/b_scan" % (self.__ns), LaserScan,
+            self.static_scan_sub_ = rospy.Subscriber("%s/f_scan" % (self.__ns), LaserScan,
                                                      self.__b_scan_callback,
                                                      queue_size=1)
-            self.static_scan_sub_ = rospy.Subscriber("%s/f_scan" % (self.__ns), LaserScan,
+            self.static_scan_sub_ = rospy.Subscriber("%s/b_scan" % (self.__ns), LaserScan,
                                                      self.__f_scan_callback,
                                                      queue_size=1)
 
@@ -116,7 +116,7 @@ class StateCollector():
             self.__wps.is_new.data = False
             # print("deep_copy: %f" % (time.time() - start))
 
-            start = time.time()
+            # start = time.time()
             if (self.__state_mode == 0):
                 # ToDo: Service call takes very long. Find more efficient solution!
                 resp = self.__img_srv(merged_scan, wp_cp)
@@ -126,11 +126,11 @@ class StateCollector():
                 self.__img = []
             return static_scan_msg, ped_scan_msg, merged_scan, self.__img, wp_cp, self.__twist, self.__goal
         else:
-            scans = []
-            scans.append(self.__f_scan)
-            scans.append(self.__b_scan)
-            resp = self.__merge_scans(scans)
-            merged_scan = resp.merged_scan
+            # scans = []
+            # scans.append(self.__f_scan)
+            # scans.append(self.__b_scan)
+            # resp = self.__merge_scans(scans)
+            merged_scan = self.__static_scan
             wp_cp = copy.deepcopy(self.__wps)
             self.__wps.is_new.data = False
             if (self.__state_mode == 0):

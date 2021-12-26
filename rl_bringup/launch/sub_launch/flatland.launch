@@ -2,6 +2,7 @@
 	<arg name="ns"/> 
   <arg name="map_path"/> 
   <arg name="update_rate"/>
+  <arg name="robot_model"/>
 
 
   <!--  ******************** flatland parameters ********************  -->
@@ -36,7 +37,7 @@
   <!--  ***************** Spawn Robot Model *****************  -->
   <node name="spawn_robot" pkg="rosservice" type="rosservice"
     args="call --wait spawn_model &quot;{
-      yaml_path: '$(find flatland_setup)/robot/robot1.model.yaml',
+      yaml_path: '$(find flatland_setup)/robot/$(arg robot_model).model.yaml',
       name: 'robot_1',
       ns: '',
       pose: {x: $(arg initial_pose_x), y: $(arg initial_pose_y), theta: $(arg initial_pose_a)}}&quot;"
