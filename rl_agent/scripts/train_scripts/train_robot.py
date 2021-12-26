@@ -217,7 +217,7 @@ if __name__ == '__main__':
     # for quick testing
     else:
 
-        num_envs = 1
+        num_envs = 2
         stage = 0
         agent_name = "ppo2_ridgeback"
         robot_radius = 0.5
