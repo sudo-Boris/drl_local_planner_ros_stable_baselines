@@ -217,10 +217,16 @@ if __name__ == '__main__':
     # for quick testing
     else:
 
-        num_envs = 2
+        num_envs = 8
         stage = 0
-        agent_name = "ppo2_ridgeback"
-        robot_radius = 0.5
+        agent_name = "ppo2_burger_bigNN"
+        ## Robot models with their radius ##
+        burger = 0.105
+        jackal = 0.267
+        ridgeback = 0.625
+        agvota = 0.629
+        ####################################
+        robot_radius = burger
 
         record_processes = []
         if record_evaluation_data:
@@ -244,14 +250,14 @@ if __name__ == '__main__':
                          noptepochs=1,
                          debug=True,
                          rew_fnc = 19,
-                         num_stacks= 3,
+                         num_stacks= 1,
                          stack_offset=5,
                          disc_action_space=False,
                          robot_radius = robot_radius,
                          stage=stage,
                          pretrained_model_name="ppo2_foo",
                          task_mode="ped",
-                         robot_model="ridgeback")
+                         robot_model="burger")
 
         for p in record_processes:
             p.terminate()
