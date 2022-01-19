@@ -91,7 +91,7 @@ def conv1d(input_tensor, scope, *, n_filters, filter_size, stride,
 ###### CNN1DPolicy_multi_input #######
 ######################################
 
-def laser_cnn_multi_input(state, **kwargs):
+def laser_cnn_multi_input_big(state, **kwargs):
     """
     1D Conv Network
 
@@ -114,6 +114,41 @@ def laser_cnn_multi_input(state, **kwargs):
     temp = tf.concat([layer_4, wps], 1)
     layer_5 = activ(linear(temp, 'fc3', n_hidden=128, init_scale=np.sqrt(2)))
     return layer_5
+
+class CNN1DPolicy_multi_input_big(common.FeedForwardPolicy):
+    """
+    This class provides a 1D convolutional network for the Raw Data Representation
+    """
+    def __init__(self, *args, **kwargs):
+        try:
+            kwargs["laser_scan_len"] = rospy.get_param("%s/rl_agent/scan_size"%NS, 90)
+        except ConnectionRefusedError:
+            kwargs["laser_scan_len"] = 90
+        super(CNN1DPolicy_multi_input, self).__init__(*args, **kwargs, cnn_extractor=laser_cnn_multi_input_big, feature_extraction="cnn")
+
+
+def laser_cnn_multi_input(state, **kwargs):
+    """
+    1D Conv Network
+
+    :param state: (TensorFlow Tensor) state input placeholder
+    :param kwargs: (dict) Extra keywords parameters for the convolutional layers of the CNN
+    :return: (TensorFlow Tensor) The CNN output layer
+    """
+    # scan = tf.squeeze(state[:, : , 0:kwargs['laser_scan_len'] , :], axis=1)
+    scan = tf.squeeze(state[:, : , 0:kwargs['laser_scan_len'] , :], axis=1)
+    wps = tf.squeeze(state[:, :, kwargs['laser_scan_len']:, -1], axis=1)
+    # goal = tf.math.multiply(goal, 6)
+
+    kwargs_conv = {}
+    activ = tf.nn.relu
+    layer_1 = activ(conv1d(scan, 'c1d_1', n_filters=32, filter_size=5, stride=2, init_scale=np.sqrt(2), **kwargs_conv))
+    layer_2 = activ(conv1d(layer_1, 'c1d_2', n_filters=64, filter_size=3, stride=2, init_scale=np.sqrt(2), **kwargs_conv))
+    layer_2 = conv_to_fc(layer_2)
+    layer_3 = activ(linear(layer_2, 'fc1', n_hidden=256, init_scale=np.sqrt(2)))
+    temp = tf.concat([layer_3, wps], 1)
+    layer_4 = activ(linear(temp, 'fc2', n_hidden=128, init_scale=np.sqrt(2)))
+    return layer_4
 
 
 
