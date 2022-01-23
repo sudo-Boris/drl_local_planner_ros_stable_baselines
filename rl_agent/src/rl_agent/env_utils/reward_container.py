@@ -93,9 +93,9 @@ class RewardContainer():
         goal_reached_rew = self.__get_goal_reached_rew(transformed_goal, 10)
 
         # Does the agent drive in reverse mode?
-        reverse_penalty = self.___reward_reverse_drive(twist.twist.linear.x, 0.01)
+        # reverse_penalty = self.___reward_reverse_drive(twist.twist.linear.x, 0.01)
 
-        rew = (wp_approached_rew + obstacle_punish + goal_reached_rew + standing_still_punish, reverse_penalty)
+        rew = (wp_approached_rew + obstacle_punish + goal_reached_rew + standing_still_punish) #, reverse_penalty)
         if (rew < -2.51):
             test = "debug"
         rew = self.__check_reward(rew, obstacle_punish, goal_reached_rew, 2.51)
