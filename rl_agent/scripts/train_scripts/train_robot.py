@@ -5,6 +5,7 @@
     @version:   3.5
     @date:      2019/04/05
 '''
+from email import policy
 import os
 import sys
 import rospy
@@ -245,6 +246,7 @@ if __name__ == '__main__':
                          cliprange=0.2,
                          total_timesteps=10000000,
                          policy="CNN1DPolicy_multi_input",
+                        # policy="CNN1DPolicy_multi_input_big",
                          num_envs=num_envs,
                          nminibatches=1,
                          noptepochs=1,

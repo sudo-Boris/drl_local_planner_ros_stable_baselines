@@ -89,13 +89,16 @@ class RewardContainer():
             obstacle_punish_ped = self.__get_obstacle_punish(ped_scan_msg.ranges, 7, 0.85)
         obstacle_punish = min(obstacle_punish_ped, obstacle_punish_static)
 
-        # Did the agent reached the goal?
+        # Did the agent reach the goal?
         goal_reached_rew = self.__get_goal_reached_rew(transformed_goal, 10)
 
-        rew = (wp_approached_rew + obstacle_punish + goal_reached_rew + standing_still_punish)
-        if (rew < -2.5):
+        # Does the agent drive in reverse mode?
+        reverse_penalty = self.___reward_reverse_drive(twist.twist.linear.x, 0.01)
+
+        rew = (wp_approached_rew + obstacle_punish + goal_reached_rew + standing_still_punish, reverse_penalty)
+        if (rew < -2.51):
             test = "debug"
-        rew = self.__check_reward(rew, obstacle_punish, goal_reached_rew, 2.5)
+        rew = self.__check_reward(rew, obstacle_punish, goal_reached_rew, 2.51)
         return rew
 
     def rew_func_2_1(self, static_scan, ped_scan_msg, wps, twist, transformed_goal):
@@ -296,6 +299,18 @@ class RewardContainer():
             return k
         else:
             return 0.0
+    
+    def ___reward_reverse_drive(
+        self, action: np.array = None, penalty: float = 0.01
+    ):
+        """
+        Applies a penalty when agent drives backwards (to prevent driving backwards as main orientation).
+        :param action: (foat): linear velocity in x direction
+        """
+        if action is not None and action < 0:
+            return -penalty
+        else:
+            return 0
 
 
     def __get_wp_approached(self, wps, punish_fac, rew_fac, k):
