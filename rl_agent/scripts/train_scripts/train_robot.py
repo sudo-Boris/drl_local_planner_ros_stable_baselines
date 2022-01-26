@@ -220,14 +220,16 @@ if __name__ == '__main__':
 
         num_envs = 8
         stage = 0
-        agent_name = "ppo2_burger_bigNN"
+        agent_name = "ppo2_jackal_fullrange"
         ## Robot models with their radius ##
         burger = 0.105
+        waffle = 0.208
         jackal = 0.267
         ridgeback = 0.625
         agvota = 0.629
+        rto = 0.225
         ####################################
-        robot_radius = burger
+        robot_radius = jackal
 
         record_processes = []
         if record_evaluation_data:
@@ -259,7 +261,7 @@ if __name__ == '__main__':
                          stage=stage,
                          pretrained_model_name="ppo2_foo",
                          task_mode="ped",
-                         robot_model="burger")
+                         robot_model="jackal")
 
         for p in record_processes:
             p.terminate()

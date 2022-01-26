@@ -150,8 +150,6 @@ def laser_cnn_multi_input(state, **kwargs):
     layer_4 = activ(linear(temp, 'fc2', n_hidden=128, init_scale=np.sqrt(2)))
     return layer_4
 
-
-
 class CNN1DPolicy_multi_input(common.FeedForwardPolicy):
     """
     This class provides a 1D convolutional network for the Raw Data Representation
