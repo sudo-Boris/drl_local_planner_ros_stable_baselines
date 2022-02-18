@@ -13,7 +13,7 @@ import numpy as np
 from gym import spaces
 import rospy
 # custom classes
-from rl_agent.env_wrapper.ros_env_burger import RosEnvBurger
+from rl_agent.env_wrapper.burger.ros_env_burger import RosEnvBurger
 
 # messages
 from geometry_msgs.msg import Twist

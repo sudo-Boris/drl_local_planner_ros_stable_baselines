@@ -8,13 +8,16 @@
 from email import policy
 import os
 import sys
+from rl_agent.env_wrapper.rto.ros_env_cont_rto import RosEnvContRto
+from rl_agent.env_wrapper.rto_real.ros_env_cont_rto_real import RosEnvContRtoReal
+from rl_agent.env_wrapper.youbot.ros_env_cont_youbot import RosEnvContYoubot
 import rospy
 import rospkg
 import configparser
 from rl_agent.env_wrapper.ros_env_disc_burger import RosEnvDiscBurger
-from rl_agent.env_wrapper.ros_env_cont_burger import RosEnvContBurger
-from rl_agent.env_wrapper.ros_env_cont_jackal import RosEnvContJackal
-from rl_agent.env_wrapper.ros_env_cont_ridgeback import RosEnvContRidgeback
+from rl_agent.env_wrapper.burger.ros_env_cont_burger import RosEnvContBurger
+from rl_agent.env_wrapper.jackal.ros_env_cont_jackal import RosEnvContJackal
+from rl_agent.env_wrapper.ridgeback.ros_env_cont_ridgeback import RosEnvContRidgeback
 from rl_agent.env_wrapper.ros_env_cont_agvota import RosEnvContAgvOta
 from rl_agent.env_utils.state_collector_rosnav import StateCollector
 from stable_baselines.common.vec_env import VecNormalize, SubprocVecEnv, VecFrameStack
@@ -71,6 +74,12 @@ def load_train_env(num_envs, robot_radius, rew_fnc, num_stacks, stack_offset, de
         env_temp = RosEnvContRidgeback
     elif robot_model == "agvota":
         env_temp = RosEnvContAgvOta
+    elif robot_model == "rto":
+        env_temp = RosEnvContRto
+    elif robot_model == "rto_real":
+        env_temp = RosEnvContRtoReal
+    elif robot_model == "youbot":
+        env_temp = RosEnvContYoubot
 
     env = SubprocVecEnv([lambda k=k: Monitor(env_temp("sim%d" % (k+1), StateCollector("sim%s"%(k+1), "train") , stack_offset, num_stacks, robot_radius, rew_fnc, debug, "train", task_mode), '%s/%s/sim_%d'%(path_to_models, agent_name, k+1), allow_early_resets=True) for k in range(num_envs)])
 
@@ -220,7 +229,7 @@ if __name__ == '__main__':
 
         num_envs = 8
         stage = 0
-        agent_name = "ppo2_jackal_fullrange"
+        agent_name = "youbot"
         ## Robot models with their radius ##
         burger = 0.105
         waffle = 0.208
@@ -228,8 +237,9 @@ if __name__ == '__main__':
         ridgeback = 0.625
         agvota = 0.629
         rto = 0.225
+        youbot = 0.347
         ####################################
-        robot_radius = jackal
+        robot_radius = youbot
 
         record_processes = []
         if record_evaluation_data:
@@ -261,7 +271,7 @@ if __name__ == '__main__':
                          stage=stage,
                          pretrained_model_name="ppo2_foo",
                          task_mode="ped",
-                         robot_model="jackal")
+                         robot_model="youbot")
 
         for p in record_processes:
             p.terminate()
